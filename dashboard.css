@@ -1,0 +1,169 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+/* ============ BACKGROUND: doodle + color wash + honeycomb grid ============ */
+.select-screen {
+  min-height: 100vh;
+  background: url("assets/doodle..jpg") center / cover fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Dark tinted wash keeps the profile selector text readable. */
+.select-screen::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(60% 80% at 15% 20%, rgba(99, 102, 241, 0.55), transparent 60%),
+    radial-gradient(50% 70% at 85% 25%, rgba(236, 72, 153, 0.45), transparent 60%),
+    radial-gradient(60% 80% at 50% 90%, rgba(34, 211, 238, 0.40), transparent 60%),
+    rgba(15, 23, 42, 0.62);
+}
+
+/* Faint honeycomb grid over everything */
+.select-screen::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background: url("data:image/svg+xml,%3Csvg width='28' height='49' viewBox='0 0 28 49' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.10' fill-rule='evenodd'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+  background-size: 28px 49px;
+}
+
+/* ============ MAIN GLASS PANEL ============ */
+.select-wrap {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 48px 56px;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.10);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 24px 70px rgba(2, 6, 23, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+h1 {
+  font-size: 46px;
+  color: #ffffff;
+  margin: 0 0 44px 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 18px rgba(2, 6, 23, 0.55);
+}
+
+/* ============ HONEYCOMB PROFILE TILES ============ */
+.profile-row {
+  display: flex;
+  gap: 34px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* Stagger every 2nd tile = honeycomb layout */
+.profile:nth-child(even) { margin-top: 30px; }
+
+.profile {
+  --glow: rgba(34, 211, 238, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+/* Per-profile glow colors */
+.profile:nth-child(1) { --glow: rgba(244, 63, 94, 0.85); }
+.profile:nth-child(2) { --glow: rgba(167, 139, 250, 0.90); }
+.profile:nth-child(3) { --glow: rgba(52, 211, 153, 0.85); }
+.profile:nth-child(4) { --glow: rgba(250, 204, 21, 0.85); }
+.profile:nth-child(5) { --glow: rgba(34, 211, 238, 0.85); }
+
+/* Hover = lift + slight twist + colored glow (the "distortion") */
+.profile:hover,
+.profile:focus-visible {
+  transform: translateY(-10px) scale(1.05) rotate(-1.5deg);
+  filter: drop-shadow(0 0 26px var(--glow));
+}
+
+/* Hexagon glass tile with gradient rim */
+.avatar {
+  width: 132px;
+  height: 148px;
+  padding: 5px;
+  display: flex;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(160deg,
+              rgba(255, 255, 255, 0.75),
+              rgba(255, 255, 255, 0.15) 45%,
+              var(--glow));
+  transition: transform 0.25s ease;
+}
+
+.avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Inner image warps on hover */
+.profile:hover .avatar img,
+.profile:focus-visible .avatar img {
+  transform: scale(1.14) rotate(3deg);
+  filter: saturate(1.35) contrast(1.05);
+}
+
+/* Glass name pill */
+.profile-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e2e8f0;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  transition: all 0.25s ease;
+}
+
+.profile:hover .profile-name,
+.profile:focus-visible .profile-name {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.92);
+  border-color: #ffffff;
+  transform: scale(1.06);
+}
+
+/* Glass hint pill */
+.hint {
+  margin-top: 48px;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}

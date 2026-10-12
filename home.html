@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shelf</title>
+  <link rel="stylesheet" href="home.css" />
+</head>
+<body class="home-screen">
+  <nav class="glass-nav">
+    <div class="nav-logo">📚 Shelf Dashboard</div>
+    <div class="nav-right">
+      <div class="profile-chip">
+        <span class="chip-hex" id="chipHex">📚</span>
+        <span id="chipName">…</span>
+      </div>
+      <button class="glass-btn small" id="switchBtn" type="button">Switch profile</button>
+      <span class="readers" id="readers"></span>
+    </div>
+  </nav>
+
+  <main class="layout">
+    <section class="col-left">
+      <div class="glass card">
+        <h2>Currently reading</h2>
+        <div class="reading-row" id="readingRow"></div>
+      </div>
+    </section>
+
+    <section class="col-center">
+      <div class="post-sticky">
+        <div class="glass card post-card" id="postCard">
+          <div class="post-head">
+            <h2>Post a vibe</h2>
+          </div>
+          <div class="post-body">
+            <input id="bookTitle" class="glass-input" placeholder="Book title" />
+            <input id="bookCode" class="glass-input" placeholder="Code / ISBN (optional)" />
+            <textarea id="quote" class="glass-input" rows="3"
+              placeholder="Quote or what's on your mind…"></textarea>
+
+            <div class="label">Mood</div>
+            <div class="pill-row" id="postMoods"></div>
+
+            <div class="label">Genre</div>
+            <div class="pill-row" id="postGenres"></div>
+
+            <div class="label">Status</div>
+            <div class="status-row">
+              <label><input type="radio" name="status" value="reading" checked /> reading</label>
+              <label><input type="radio" name="status" value="finished" /> finished</label>
+              <label><input type="radio" name="status" value="crash" /> crash desk</label>
+            </div>
+            <input id="crashReason" class="glass-input hidden"
+              placeholder="Why did it crash? (too slow, wrong season…)" />
+
+            <button class="glass-btn accent" id="postBtn" type="button">Post it ✨</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass card feed-card">
+        <h2>Friend feed</h2>
+        <div id="feed"></div>
+      </div>
+    </section>
+
+    <section class="col-right">
+      <div class="glass card">
+        <h2>Mood recommender</h2>
+        <div class="label">I feel…</div>
+        <div class="pill-row" id="recMoods"></div>
+        <div class="label">Filter</div>
+        <div class="pill-row" id="recGenres"></div>
+        <button class="glass-btn accent" id="suggestBtn" type="button">Suggest me ✨</button>
+        <div id="recResults" class="rec-results"></div>
+        <h2 class="want-heading">Want to read</h2>
+        <div id="wantShelf" class="want-shelf"></div>
+      </div>
+    </section>
+
+    <section class="crash-wrap">
+      <div class="glass card crash-card">
+        <h2>🪦 Crash Desk</h2>
+        <p class="sub">Books we abandoned. No shame. Resurrect anytime.</p>
+        <div class="crash-row" id="crashRow"></div>
+      </div>
+    </section>
+
+    <div class="marquee">
+      <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+  </main>
+
+  <script src="home.js"></script>
+</body>
+</html>
